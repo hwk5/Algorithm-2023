@@ -11,7 +11,7 @@ typedef struct { // 스택 구조체 선언
 	Current data[100];
 	int top;
 } Stack;
-char maze[10][10] = { // 미로 생성(1 은 벽, 0은 길, S는 출발점, F는 도착점)
+char Maze[10][10] = { // 미로 생성(1 은 벽, 0은 길, S는 출발점, F는 도착점)
 {'1','1','1','1','1','1','1','1','1'},
 {'1','0','0','1','0','1','1','1','1'},
 {'1','0','0','0','0','0','0','1','0'},
@@ -47,7 +47,7 @@ void Find(Stack* s, int x, int y) { // 미로의 길을 찾는 함수
 	if (x < 0 || y < 0 || x > 10 || y > 10) { // x, y 값이 미로의 크기를 벗어난 값일때의 예외 처리
 			return;
 	}
-	if (maze[x][y] != '#' && maze[x][y] != '1') { // 미로의 벽이거나 방문하지 않은곳일 때 
+	if (Maze[x][y] != '#' && Maze[x][y] != '1') { // 미로의 벽이거나 방문하지 않은곳일 때 
 			Current temp; // x, y값을 저장할 Current 구조체의 temp 변수 선언
 		temp.x = x; // temp의 x값에 x값 저장
 		temp.y = y; // temp의 y값에 y값 저장
@@ -61,7 +61,7 @@ int main(void) {
 	s.top = -1; // 스택의 top을 -1로 초기화
 	for (i = 0; i < 10; i++) { // 시작점 탐색
 		for (j = 0; j < 10; j++) {
-			if (maze[i][j] == 'S') {
+			if (Maze[i][j] == 'S') {
 				c.x = i;
 				c.y = j;
 			}
@@ -69,10 +69,10 @@ int main(void) {
 	}
 	printf("이동 경로\n");
 	printf("시작 지점 (%d, %d) -> ", c.x, c.y); // 시작 지점의 좌표 출력
-	while (maze[c.x][c.y] != 'F') { // 도착점에 도달할 때까지 반복
+	while (Maze[c.x][c.y] != 'F') { // 도착점에 도달할 때까지 반복
 		x = c.x; // x값에 Current 구조체의 x값 저장
 		y = c.y; // y값에 Current 구조체의 y값 저장
-		maze[x][y] = '1'; // 방문한 곳 표시
+		Maze[x][y] = '1'; // 방문한 곳 표시
 		Find(&s, x + 1, y); // 이동 가능한 곳 탐색: 오른쪽
 		Find(&s, x - 1, y); // 이동 가능한 곳 탐색: 왼쪽
 		Find(&s, x, y + 1); // 이동 가능한 곳 탐색: 위
