@@ -47,7 +47,7 @@ void Find(Stack* s, int x, int y) { // 미로의 길을 찾는 함수
 	if (x < 0 || y < 0 || x > 10 || y > 10) { // x, y 값이 미로의 크기를 벗어난 값일때의 예외 처리
 			return;
 	}
-	if (maze[x][y] != '1' && maze[x][y] != '#') { // 미로의 벽이거나 방문하지 않은곳일 때 //초기 # 1
+	if (maze[x][y] != '#' && maze[x][y] != '1') { // 미로의 벽이거나 방문하지 않은곳일 때 
 			Current temp; // x, y값을 저장할 Current 구조체의 temp 변수 선언
 		temp.x = x; // temp의 x값에 x값 저장
 		temp.y = y; // temp의 y값에 y값 저장
