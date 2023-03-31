@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <math.h>
 
-//#define logB(x, base) log(x)/log(base)
-
 double logB(double x, double base) {
 	return log(x) / log(base);
 }
