@@ -13,4 +13,5 @@ int main() {
         change = change % coin[i]; //잔돈 저장
         printf("%d원 : %d개\n", coin[i], count[i]);
     }
+    return 0;
 }
