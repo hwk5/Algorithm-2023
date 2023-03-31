@@ -2,9 +2,9 @@
 #include<stdio.h>
 
 int main() {
-	int a[10], MAX=0, i;
+	int a[9], MAX=0, i;
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < 9; i++) {
 		scanf_s("%d", &a[i]); 
 		if (a[i] > MAX) {
 		  MAX = a[i];
