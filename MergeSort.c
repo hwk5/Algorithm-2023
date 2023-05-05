@@ -53,7 +53,7 @@ int main() {
 
     while (fscanf(fp_in, "%d", &arr[n++]) != EOF) { // 파일에서 입력값을 읽어옴
         if (n >= MAX_SIZE) { // 입력값 개수가 최대 개수를 초과할 경우
-            fprintf(stderr, " "에러: 입력값 초과\n"); // 오류 메시지 출력
+            fprintf(stderr, "에러: 입력값 초과\n"); // 오류 메시지 출력
             return 1; // 비정상 종료
         }
     }
