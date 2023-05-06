@@ -1,75 +1,38 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
-int partition(int arr[], int low, int high) {
-    int pivot = arr[high];
-    int i = low - 1;
-
-    for (int j = low; j <= high - 1; j++) {
-        if (arr[j] < pivot) {
-            i++;
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
-    }
-
-    int temp = arr[i + 1];
-    arr[i + 1] = arr[high];
-    arr[high] = temp;
-
-    return i + 1;
-}
-
-int kthSmallest(int arr[], int low, int high, int k) {
-    if (k > 0 && k <= high - low + 1) {
-        int p = partition(arr, low, high);
-        if (p - low == k - 1) {
-            return arr[p];
-        }
-        if (p - low > k - 1) {
-            return kthSmallest(arr, low, p - 1, k);
-        }
-        return kthSmallest(arr, p + 1, high, k - p + low - 1);
-    }
-    return -1;
-}
-
 int main() {
-    FILE* input = fopen("data.txt", "r");
-    if (input == NULL) {
-        printf("ÀÔ·ÂÆÄÀÏ ½ÇÇà ¿À·ù\n");
-        return 1;
-    }
+    int n;
+    int arr[10];
 
-    FILE* output = fopen("result.txt", "w");
-    if (output == NULL) {
-        printf("Ãâ·ÂÆÄÀÏ ½ÇÇà ¿À·ù\n");
-        fclose(input);
-        return 1;
-    }
-
-    int arr[1000];
-    int n, k;
-
-    fscanf(input, "%d %d", &n, &k);
+    // ì…ë ¥ ë°ì´í„°ë¥¼ íŒŒì¼ì—ì„œ ì½ì–´ì˜´
+    FILE* f = fopen("data.txt", "r");
+    fscanf(f, "%d", &n);
     for (int i = 0; i < n; i++) {
-        fscanf(input, "%d", &arr[i]);
+        fscanf(f, "%d", &arr[i]);
+    }
+    fclose(f);
+
+    // ì„ íƒ ì •ë ¬ ì•Œê³ ë¦¬ì¦˜
+    for (int i = 0; i < n - 1; i++) {
+        int min_idx = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        int tmp = arr[i];
+        arr[i] = arr[min_idx];
+        arr[min_idx] = tmp;
     }
 
-    int result = kthSmallest(arr, 0, n - 1, k);
-
-    if (result == -1) {
-        printf("Invalid input\n");
-        fclose(input);
-        fclose(output);
-        return 1;
+    // ê²°ê³¼ë¥¼ íŒŒì¼ì— ì €ì¥
+    f = fopen("result.txt", "w");
+    fprintf(f, "%d\n", n);
+    for (int i = 0; i < n; i++) {
+        fprintf(f, "%d ", arr[i]);
     }
-
-    fprintf(output, "%d\n", result);
-
-    fclose(input);
-    fclose(output);
+    fclose(f);
 
     return 0;
 }
