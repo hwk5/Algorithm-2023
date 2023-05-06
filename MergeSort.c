@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_SIZE 1000000
+#define MAX_SIZE 100
 
 int arr[MAX_SIZE]; //입력값 배열
 int tmp[MAX_SIZE]; //임시 배열
