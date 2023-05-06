@@ -1,55 +1,62 @@
-#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 
 #include <stdio.h>
 
+// 선택 정렬 함수
 void selectionSort(int arr[], int n) {
-    int i, j, min_idx, tmp;
-
+    int i, j, min_idx;
+    // 배열의 첫 번째 원소부터 마지막 바로 전 원소까지 반복
     for (i = 0; i < n - 1; i++) {
-        // 배열의 i번째 원소부터 n-1번째 원소 중에서 가장 작은 값을 찾는다.
+        // 현재 위치부터 마지막 원소까지 중 가장 작은 원소의 인덱스를 찾음
         min_idx = i;
         for (j = i + 1; j < n; j++) {
             if (arr[j] < arr[min_idx]) {
                 min_idx = j;
             }
         }
-
-        // 배열의 i번째 원소와 가장 작은 값을 가진 원소를 교환한다.
-        tmp = arr[i];
+        // 현재 위치와 가장 작은 원소의 위치를 교환
+        int temp = arr[i];
         arr[i] = arr[min_idx];
-        arr[min_idx] = tmp;
+        arr[min_idx] = temp;
     }
 }
 
 int main() {
-    int arr[100];
-    int i, n = 0;
+    // 입력 파일과 출력 파일의 파일 포인터 선언
+    FILE* input_file, * output_file;
 
-    // 파일에서 데이터를 읽어들인다.
-    FILE* fp = fopen("data.txt", "r");
-    if (fp == NULL) {
-        printf("데이터 읽기 실패.\n");
+    // 입력 파일을 읽기 모드로 열기
+    input_file = fopen("data.txt", "r");
+    if (input_file == NULL) {
+        printf("입력파일 열기 실패.\n");
         return 1;
     }
 
-    while (fscanf(fp, "%d", &arr[n]) != EOF) {
+    // 출력 파일을 쓰기 모드로 열기
+    output_file = fopen("result.txt", "w");
+    if (output_file == NULL) {
+        printf("출력파일 열기 실패.\n");
+        fclose(input_file);
+        return 1;
+    }
+
+    // 입력 파일에서 데이터 읽기
+    int arr[100];
+    int n = 0;
+    while (fscanf(input_file, "%d", &arr[n]) == 1) {
         n++;
     }
-    fclose(fp);
 
-    // 선택 정렬 알고리즘을 호출하여 데이터를 정렬한다.
+    // 선택 정렬 함수 호출
     selectionSort(arr, n);
 
-    // 결과를 파일에 쓴다.
-    fp = fopen("result.txt", "w");
-    if (fp == NULL) {
-        printf("결과 쓰기 실패.\n");
-        return 1;
+    // 정렬된 결과를 출력 파일에 저장
+    for (int i = 0; i < n; i++) {
+        fprintf(output_file, "%d ", arr[i]);
     }
 
-    for (i = 0; i < n; i++) {
-        fprintf(fp, "%d ", arr[i]);
-    }
-    fclose(fp);
+    // 파일 포인터 닫기
+    fclose(input_file);
+    fclose(output_file);
 
     return 0;
 }
