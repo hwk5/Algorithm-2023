@@ -1,11 +1,12 @@
+#include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include "tree.h"
 
-int testEuclid();
+int main() {
+    printf("이진트리 생성\n");
 
-int main(int argc, char* argv[])
-{
-    srand(time(NULL));
-    int result = testEuclid();
-    return result;
+    Node* root = makeTree();
+    printNode(root);
+
+    return 0;
 }
